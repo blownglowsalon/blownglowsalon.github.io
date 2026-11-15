@@ -918,7 +918,20 @@ var SERVICES = [
     if (name.length < 2) { say("Please enter your name.", true); form.name.focus(); return; }
     if (phone.replace(/\D/g, "").length < 10) { say("Please enter a valid phone number with at least 10 digits.", true); form.phone.focus(); return; }
     if (!form.service.value) { say("Please choose a service.", true); form.service.focus(); return; }
-    if (!CONFIG.scriptUrl) { say("The form is not connected to the Google Sheet yet. Add the Apps Script URL in CONFIG to go live.", true); return; }
+    // Send the enquiry to the salon WhatsApp with all details pre-filled
+    var msg = "Hi Blow N Glow! I'd like to book an appointment.\n\n" +
+      "Name: " + name + "\n" +
+      "Phone: " + phone + "\n" +
+      "Service: " + form.service.value + "\n" +
+      (form.date.value ? "Date: " + form.date.value + "\n" : "") +
+      (form.time.value ? "Preferred Time: " + form.time.value + "\n" : "") +
+      (form.message.value.trim() ? "Message: " + form.message.value.trim() : "");
+    var waUrl = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+    var w = window.open(waUrl, "_blank");
+    if (!w) location.href = waUrl;
+    form.reset();
+    say("Thank you, " + name + "! Opening WhatsApp. Please tap Send to confirm your booking.");
+    return;
     var data = new URLSearchParams(new FormData(form)); data.set("phone", phone); data.set("page", location.href);
     btn.disabled = true; btn.textContent = "Sending…"; say("");
     fetch(CONFIG.scriptUrl, { method: "POST", body: data })
