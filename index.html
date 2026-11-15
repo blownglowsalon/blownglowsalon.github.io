@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blow N Glow Salon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Blow N Glow, Kallakurichi's premium unisex salon. Hair, skin, makeup, bridal and grooming under one roof. Book an appointment or WhatsApp us.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500;1,600;1,700&family=Poppins:wght@300;400;500;600;700&display=swap">
+<style>
+/* Layout: dark stage with a wind-blown strand field (WebGL) flowing behind a neon arch portrait in the hero,
+   then alternating light and dark bands as in the homepage mockup. Teal is kept for actions and the logo "N". */
+:root{
+  color-scheme:dark;
+  --ink:#080B0D;        /* near black: page ground */
+  --ink-2:#0E1417;      /* raised surface */
+  --ink-3:#151D21;      /* card surface */
+  --line:#223036;       /* hairlines on dark */
+  --teal:#00A9C7;       /* electric teal: actions, logo N */
+  --teal-deep:#007E95;  /* teal on light surfaces */
+  --aqua:#A7DCE3;       /* soft aqua: eyebrows, accents */
+  --white:#FFFFFF;
+  --mist:#F2F6F5;       /* light band */
+  --sage:#D8E1DE;       /* calm panels */
+  --grey:#AEB9BB;       /* body copy on dark */
+  --slate:#44555A;      /* body copy on light */
+  --line-light:#D3DDDB; /* hairlines on light */
+  --pine-2:#0B3640;     /* lighter teal ground for alternate bands */
+  --pine:#07252B;       /* deep teal panel, as in the service banners */
+  --teal-hi:#6FE6F6;    /* orb highlight */
+  --teal-shade:#03323C; /* orb shadow side */
+  --display:"Playfair Display",Georgia,"Times New Roman",serif;
+  --body:"Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
+  --r-lg:26px; --r-md:16px; --r-pill:999px;
+  --gap:clamp(20px,3vw,44px);
+  --band:clamp(64px,9vw,120px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--ink);color:var(--grey);font-family:var(--body);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+h1,h2{font-family:var(--display);font-style:italic;font-weight:600;color:var(--white);margin:0;text-wrap:balance;letter-spacing:-.01em;line-height:1.08}
+h3{font-family:var(--body);font-weight:600;color:var(--white);margin:0;line-height:1.25}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+img{display:block}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--aqua);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--teal)}
+.n{color:var(--teal)}
+.light{background:var(--mist);color:var(--slate)}
+.light h2,.light h3{color:var(--ink)}
+.light .eyebrow{color:var(--teal-deep)}
+.light .n{color:var(--teal-deep)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 .92rem/1 var(--body);padding:16px 26px;border-radius:var(--r-pill);border:1px solid transparent;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s,border-color .25s;white-space:nowrap}
+.btn-primary{background:var(--teal);color:var(--ink)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px -8px rgba(0,169,199,.65)}
+.btn-ghost{border-color:rgba(167,220,227,.45);color:var(--white);background:rgba(8,11,13,.4);backdrop-filter:blur(6px)}
+.btn-ghost:hover{border-color:var(--aqua);transform:translateY(-2px)}
+.btn svg{width:18px;height:18px;flex:none}
+
+/* info bar + header */
+.info{background:var(--ink-2);border-bottom:1px solid var(--line);font-size:.76rem;color:var(--sage)}
+.info .wrap{display:flex;flex-wrap:wrap;gap:6px 26px;justify-content:space-between;padding-block:9px}
+.info span{display:inline-flex;align-items:center;gap:8px}
+.info svg{width:14px;height:14px;fill:var(--teal);flex:none}
+@media(max-width:860px){.info .hide-s{display:none}.info .wrap{justify-content:center}}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(8,11,13,.76);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}
+.logo{display:block;flex:none}
+.logo img{height:54px;width:auto;max-width:none}
+.logo.big img{height:58px}
+@media(max-width:520px){.logo img{height:44px}.logo.big img{height:50px}}
+.nav{display:flex;align-items:center;gap:clamp(14px,2.2vw,30px);font-size:.86rem;font-weight:500;color:var(--sage)}
+.nav a:not(.btn){position:relative;padding-block:6px}
+.nav a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--teal);transition:right .3s}
+.nav a:not(.btn):hover::after{right:0}
+.nav .btn{padding:12px 20px;font-size:.84rem}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--white);border-radius:var(--r-pill);padding:10px 16px;font:600 .78rem var(--body);letter-spacing:.1em;cursor:pointer}
+@media(max-width:940px){
+  .menu-btn{display:block}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:flex-start;gap:4px;background:var(--ink);border-bottom:1px solid var(--line);padding:12px max(20px,env(safe-area-inset-right,0px)) 24px max(20px,env(safe-area-inset-left,0px));display:none}
+  .nav.open{display:flex}
+  .nav a:not(.btn){padding-block:12px;font-size:1.02rem}
+  .nav .btn{margin-top:10px}
+}
+
+/* hero: the flowing-hair portrait as the deep layer, WebGL light ribbons and glitter mid-air, a curved wall of glass service tiles up front */
+.hero{position:relative;isolation:isolate;overflow:hidden;--px:0;--py:0}
+.hero::before{content:"";position:absolute;inset:0;z-index:-4;background:var(--pine)}
+.hero-photo{position:absolute;top:0;right:-9%;bottom:0;width:109%;height:100%;max-width:none;object-fit:cover;object-position:50% 18%;z-index:-3;transform:scale(1.05) translate(calc(var(--px)*-24px),calc(var(--py)*-14px));transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(8,11,13,.82) 0%,rgba(7,37,43,.6) 28%,rgba(8,11,13,.12) 52%,transparent 66%),linear-gradient(0deg,var(--ink) 0%,rgba(8,11,13,.55) 20%,transparent 44%)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;pointer-events:none}
+.hero .wrap{display:flex;flex-direction:column;gap:clamp(36px,5vw,64px);padding-block:clamp(48px,6vw,92px) clamp(34px,4vw,56px)}
+.hero-text{display:flex;flex-direction:column;gap:18px;align-items:flex-start;max-width:620px}
+.hero .eyebrow{color:var(--sage);letter-spacing:.28em;font-weight:500}
+.hero .eyebrow::after{content:"";width:28px;height:1px;background:var(--teal)}
+.hero h1{display:flex;flex-direction:column;font-size:clamp(3rem,7.6vw,6.2rem);line-height:.98;font-weight:600}
+.hero h1 em{color:var(--teal);font-weight:700;text-shadow:0 0 46px rgba(0,169,199,.6);padding-left:.18em}
+.hero .lede{font-size:clamp(1.1rem,1.9vw,1.5rem);max-width:30ch;color:var(--white);line-height:1.4}
+.hero .lede i{font:italic 600 1.05em var(--display);color:var(--teal)}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
+.tiles{perspective:1300px}
+.tiles-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;transform-style:preserve-3d;transform:rotateX(calc(4deg + var(--py)*8deg)) rotateY(calc(var(--px)*-12deg));transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.tile{--ry:0deg;--z:0px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:22px 12px 20px;border-radius:22px;background:linear-gradient(160deg,rgba(0,169,199,.34),rgba(7,37,43,.74) 58%);border:1px solid rgba(111,230,246,.6);box-shadow:0 0 0 1px rgba(8,11,13,.4),0 26px 40px -18px rgba(0,0,0,.9),0 0 34px rgba(0,169,199,.38),inset 0 1px 0 rgba(255,255,255,.4);backdrop-filter:blur(10px);transform-style:preserve-3d;transform:rotateY(var(--ry)) translateZ(var(--z));transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.tile:nth-child(1){--ry:17deg;--z:34px}.tile:nth-child(2){--ry:8deg;--z:8px}.tile:nth-child(4){--ry:-8deg;--z:8px}.tile:nth-child(5){--ry:-17deg;--z:34px}
+.tile:hover,.tile:focus-visible{transform:rotateY(0deg) translateZ(70px);box-shadow:0 0 0 1px rgba(8,11,13,.4),0 34px 50px -18px rgba(0,0,0,.9),0 0 60px rgba(0,169,199,.7),inset 0 1px 0 rgba(255,255,255,.5)}
+.tile svg{width:46px;height:46px;stroke:var(--white);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(111,230,246,.9));transform:translateZ(34px);margin-bottom:6px}
+.tile b{font-size:1.08rem;font-weight:600;color:var(--white);line-height:1.2;transform:translateZ(20px)}
+.tile small{font-size:.76rem;color:var(--sage);line-height:1.4}
+@media(max-width:900px){
+  .tiles{perspective:none;overflow-x:auto;margin-inline:-20px;padding:6px 20px 14px;scrollbar-width:none}
+  .tiles::-webkit-scrollbar{display:none}
+  .tiles-row{display:flex;width:max-content;transform:none;gap:12px}
+  .tile,.tile:hover{flex:0 0 136px;transform:none;padding:18px 10px 16px}
+}
+@media(max-width:760px){
+  .hero::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(7,37,43,.86) 48%,rgba(8,11,13,.1) 78%)}
+  .hero-photo{right:0;width:100%;height:52%;bottom:auto;object-position:84% 10%;-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent);mask-image:linear-gradient(180deg,#000 60%,transparent)}
+  .hero .wrap{padding-top:clamp(210px,60vw,300px)}
+  .cta-row .btn{flex:1 1 100%}
+  .hero .eyebrow{letter-spacing:.16em;font-size:.68rem}
+  .hero .eyebrow::after{display:none}
+}
+
+/* marquee */
+.ticker{border-block:1px solid var(--line);overflow:hidden;background:var(--ink-2)}
+.ticker div{display:flex;gap:44px;width:max-content;padding-block:16px;animation:slide 40s linear infinite;font:italic 600 1.05rem var(--display);color:var(--sage)}
+.ticker span::after{content:"✦";color:var(--teal);margin-left:44px;font-style:normal;font-size:.8rem}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* bands */
+.band{padding-block:var(--band)}
+.head{display:flex;flex-direction:column;gap:16px;margin-bottom:clamp(28px,4vw,48px)}
+.head>*{min-width:0}
+.head h2,.stack h2{font-size:clamp(2rem,4.4vw,3.3rem);margin-top:16px}
+.head p{max-width:60ch}
+
+/* services: 3D icon menu + one showcase panel */
+.services{background:radial-gradient(70% 60% at 80% 0%,rgba(0,169,199,.16),transparent 70%),var(--ink)}
+.tabs{display:flex;gap:6px;justify-content:space-between;overflow-x:auto;padding:14px 4px 18px;margin-bottom:10px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 104px;display:flex;flex-direction:column;align-items:center;gap:14px;background:none;border:0;padding:6px 4px;cursor:pointer;font:500 .84rem/1.3 var(--body);color:var(--grey);text-align:center;transition:color .3s}
+.tab:hover,.tab[aria-selected="true"]{color:var(--white)}
+.orb{position:relative;width:68px;height:68px;flex:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 32% 26%,var(--ink-3) 0%,var(--ink-2) 55%,var(--ink) 100%);box-shadow:inset 0 -6px 12px rgba(0,0,0,.6),inset 0 2px 5px rgba(167,220,227,.35),0 14px 20px -8px rgba(0,0,0,.8),0 0 0 1px var(--line);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,background .35s}
+.orb::before{content:"";position:absolute;left:18%;top:9%;width:48%;height:30%;border-radius:50%;background:linear-gradient(rgba(255,255,255,.5),transparent);opacity:.55}
+.orb::after{content:"";position:absolute;left:14%;right:14%;bottom:-16px;height:10px;border-radius:50%;background:radial-gradient(rgba(0,169,199,.55),transparent 70%);opacity:0;transition:opacity .35s}
+.orb svg{position:relative;width:28px;height:28px;stroke:var(--aqua);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 2px rgba(0,0,0,.5))}
+.tab:hover .orb{transform:translateY(-5px)}
+.tab[aria-selected="true"] .orb,.orb.lit{background:radial-gradient(circle at 32% 26%,var(--teal-hi) 0%,var(--teal) 36%,var(--teal-deep) 70%,var(--teal-shade) 100%);box-shadow:inset 0 -7px 12px rgba(0,0,0,.4),inset 0 3px 6px rgba(255,255,255,.5),0 16px 22px -8px rgba(0,0,0,.8),0 0 30px rgba(0,169,199,.6)}
+.tab[aria-selected="true"] .orb{transform:translateY(-8px) scale(1.08)}
+.tab[aria-selected="true"] .orb::after{opacity:1}
+.tab[aria-selected="true"] .orb svg,.orb.lit svg{stroke:var(--white)}
+.panel-stage{perspective:1600px}
+.panel{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);background:linear-gradient(120deg,var(--pine),var(--ink-2) 70%);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,169,199,.45)}
+.panel.flip{animation:flip .6s cubic-bezier(.2,.7,.2,1)}
+@keyframes flip{from{transform:rotateY(-16deg) translateX(40px);opacity:.2}}
+.p-media{position:relative;min-height:420px;overflow:hidden;background:radial-gradient(80% 90% at 30% 20%,rgba(0,169,199,.5),transparent 70%),var(--pine);display:grid;place-items:center}
+.p-media img,.p-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.p-media>svg{width:110px;height:110px;stroke:var(--aqua);fill:none;stroke-width:.8;stroke-linecap:round;stroke-linejoin:round}
+.p-media small{position:absolute;left:16px;bottom:16px;font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);background:rgba(8,11,13,.6);padding:7px 12px;border-radius:var(--r-pill)}
+.p-body{padding:clamp(24px,4vw,44px);display:flex;flex-direction:column;gap:20px;align-items:flex-start;min-width:0}
+.p-title{font:italic 600 clamp(2rem,4.4vw,3.2rem)/1.05 var(--display);color:var(--white)}
+.p-title em{color:var(--teal)}
+.p-tag{font-size:.95rem;font-weight:300;letter-spacing:.14em;color:var(--white);white-space:pre-wrap}
+.subs{list-style:none;margin:4px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:18px 12px;width:100%}
+.subs li{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;font-size:.84rem;font-weight:500;color:var(--white);line-height:1.3}
+.subs .orb{width:62px;height:62px}
+.d-rev{width:100%;background:rgba(8,11,13,.5);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 20px;display:flex;flex-direction:column;gap:6px}
+.d-rev b{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--aqua);font-weight:600}
+.d-rev .stars{color:var(--teal)}
+.d-rev p{color:var(--white);font-size:.95rem}
+.d-rev footer{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.82rem;font-weight:600;color:var(--sage)}
+.d-rev footer i{font-style:normal;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 10px}
+@media(max-width:860px){.panel{grid-template-columns:1fr}.p-media{min-height:0;aspect-ratio:4/3}.tabs{justify-content:flex-start;margin-inline:-4px}.tab{flex:0 0 96px}}
+@media(max-width:520px){.subs{grid-template-columns:repeat(2,minmax(0,1fr))}.subs li:last-child:nth-child(odd){grid-column:1/-1}}
+@media(prefers-reduced-motion:reduce){.panel.flip{animation:none}}
+
+/* packages */
+.packages{background:var(--ink-2);border-block:1px solid var(--line)}
+.pk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.pk{transform-style:preserve-3d;background:rgba(8,11,13,.5);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 24px 24px;display:flex;flex-direction:column;gap:16px;transition:transform .3s,border-color .3s}
+.pk:hover{transform:translateY(-6px);border-color:var(--teal)}
+.pk.star{border-color:var(--teal);background:linear-gradient(170deg,rgba(0,169,199,.18),var(--ink-3) 55%)}
+.pk small{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--aqua)}
+.pk h3{transform:translateZ(26px);font:italic 600 1.5rem/1.15 var(--display)}
+.pk ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:.88rem;color:var(--sage)}
+.pk li{display:flex;gap:10px;align-items:flex-start}
+.pk li::before{content:"";flex:none;width:16px;height:16px;margin-top:3px;border-radius:50%;background:var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.300 8.300l2.400 2.400 5-5.400' fill='none' stroke='%23080B0D' stroke-width='1.800' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain}
+.pk-foot{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column}
+.pk .btn{padding:13px 18px;font-size:.86rem}
+@media(max-width:1040px){.pk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.pk-grid{grid-template-columns:1fr}}
+
+/* transformations */
+.tf{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gap);align-items:center}
+.stack{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.stack p{max-width:48ch}
+.tf-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px}
+.cmp{position:relative;grid-row:span 2;aspect-ratio:640/937;max-width:100%;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);--p:50%;touch-action:pan-y;user-select:none}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.cmp .before{clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.cmp::after{content:"";position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--white);box-shadow:0 0 14px rgba(0,169,199,.9)}
+.knob{position:absolute;top:50%;left:var(--p);width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:var(--white);display:grid;place-items:center;z-index:2;pointer-events:none;box-shadow:0 6px 20px rgba(8,11,13,.5)}
+.knob svg{width:22px;height:22px;stroke:var(--teal-deep);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:3;padding:0;border:0}
+.cmp:focus-within{outline:2px solid var(--aqua);outline-offset:3px}
+.tag{position:absolute;bottom:14px;z-index:2;font:600 .7rem var(--body);letter-spacing:.12em;text-transform:uppercase;padding:7px 13px;border-radius:var(--r-pill);background:rgba(8,11,13,.65);color:var(--white);backdrop-filter:blur(6px)}
+.tag.l{left:14px}.tag.r{right:14px;background:var(--teal);color:var(--ink)}
+.res{transition:transform .5s cubic-bezier(.2,.7,.2,1);position:relative;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);min-height:160px}
+.res img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.cap{font-size:.8rem;margin-top:14px}
+@media(max-width:900px){.tf{grid-template-columns:1fr}}
+@media(max-width:520px){.tf-grid{grid-template-columns:1fr 1fr}.cmp{grid-column:1/-1;grid-row:auto}.res{aspect-ratio:3/4}}
+
+/* gallery */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.filters button{font:500 .85rem var(--body);color:var(--sage);background:none;border:1px solid var(--line);border-radius:var(--r-pill);padding:10px 18px;cursor:pointer;transition:all .25s}
+.filters button:hover{border-color:var(--aqua)}
+.filters button[aria-pressed="true"]{background:var(--white);color:var(--ink);border-color:var(--white)}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.shot{transition:transform .5s cubic-bezier(.2,.7,.2,1);position:relative;margin:0;aspect-ratio:3/4;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);background:var(--ink-3)}
+.shot.tall{grid-row:span 2;aspect-ratio:auto}
+.snd{position:absolute;right:10px;top:10px;z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid rgba(167,220,227,.5);background:rgba(8,11,13,.6);backdrop-filter:blur(6px);display:grid;place-items:center;cursor:pointer;padding:0}
+.snd svg{width:18px;height:18px;stroke:var(--white);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.snd .on,.snd[aria-pressed="true"] .off{display:none}
+.snd[aria-pressed="true"] .on{display:inline}
+.snd[aria-pressed="true"]{background:var(--teal);border-color:var(--teal)}
+.gallery{grid-auto-flow:dense}
+.shot img,.shot video{width:100%;height:100%;object-fit:cover;object-position:50% 22%;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.shot:hover img{transform:scale(1.08)}
+.shot::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,11,13,.75),transparent 38%);pointer-events:none}
+.shot figcaption{position:absolute;left:14px;right:14px;bottom:12px;z-index:1;display:flex;flex-direction:column;font-size:.86rem;font-weight:500;color:var(--white);line-height:1.3}
+.shot figcaption small{font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--aqua)}
+@media(max-width:820px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* reviews */
+.reviews{background:var(--sage);position:relative;overflow:hidden}
+.reviews .wrap{position:relative}
+.rev .stars,.d-rev .stars{font-size:1.25rem;letter-spacing:5px;background:linear-gradient(100deg,var(--teal-deep) 0 38%,var(--white) 50%,var(--teal) 62% 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:starshine 2.400s linear infinite;filter:drop-shadow(0 0 6px rgba(0,169,199,.75))}
+.d-rev .stars{background-image:linear-gradient(100deg,var(--teal) 0 38%,var(--white) 50%,var(--aqua) 62% 100%)}
+@keyframes starshine{from{background-position:130% 0}to{background-position:-130% 0}}
+.rev{position:relative;overflow:hidden;border:1px solid rgba(0,169,199,.45)}
+.rev::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(0,169,199,.10) 47%,rgba(167,220,227,.35) 50%,rgba(0,169,199,.10) 53%,transparent 60%);background-size:300% 100%;animation:sweep 5s ease-in-out infinite;pointer-events:none}
+.rev:nth-child(2n)::before{animation-delay:-1.700s}.rev:nth-child(3n)::before{animation-delay:-3.300s}
+@keyframes sweep{0%,40%{background-position:130% 0}100%{background-position:-60% 0}}
+.rev-head{display:flex;flex-wrap:wrap;gap:20px 40px;justify-content:space-between;align-items:flex-end;margin-bottom:8px}
+.rev-head .head{margin-bottom:0;flex:1 1 420px}
+.scores{display:flex;gap:14px;perspective:800px}
+.score{display:flex;align-items:center;gap:12px;padding:14px 20px;border-radius:var(--r-md);background:linear-gradient(150deg,var(--white),var(--mist));box-shadow:0 18px 30px -16px rgba(8,11,13,.45),inset 0 -4px 0 rgba(0,126,149,.18),inset 0 1px 0 var(--white);transform:rotateX(8deg) rotateY(-8deg);transition:transform .4s}
+.score:hover{transform:rotateX(0) rotateY(0) translateY(-4px)}
+.score b{font:600 2rem/1 var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.score i{font-style:normal;color:var(--teal-deep);font-size:1.3rem;margin-left:3px}
+.score span{font-weight:600;color:var(--ink);font-size:.9rem;line-height:1.3}
+.score small{display:block;font-weight:400;font-size:.76rem;color:var(--slate)}
+.rev-track{perspective:1300px;padding:34px 6px 30px;display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;scrollbar-width:thin;scrollbar-color:var(--teal-deep) transparent}
+.rev{transform:rotateY(var(--r,0deg)) translateZ(var(--z,0px));transform-origin:50% 50%;box-shadow:0 30px 44px -26px rgba(8,11,13,.55),0 0 0 4px rgba(255,255,255,.55),0 0 38px rgba(0,169,199,.45);flex:0 0 min(400px,84%);scroll-snap-align:start;background:var(--white);border-radius:var(--r-lg);padding:28px;display:flex;flex-direction:column;gap:16px}
+.stars{color:var(--teal-deep);letter-spacing:4px;font-size:1rem}
+.rev p{font-size:1rem;color:var(--ink);line-height:1.6}
+.rev footer{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.84rem;font-weight:600;color:var(--ink)}
+.rev footer span{font-weight:600;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);border:1px solid var(--line-light);border-radius:var(--r-pill);padding:5px 10px}
+.rev-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:18px}
+.light .btn-ghost{background:none;border-color:var(--slate);color:var(--ink)}
+.light .btn-ghost:hover{border-color:var(--ink)}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--gap);align-items:center}
+.about-media{position:relative;padding:0 0 46px 0;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.inset{transform:translateZ(60px);position:absolute;right:-6px;bottom:0;width:38%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--r-md);border:3px solid var(--pine);box-shadow:0 0 0 1px var(--teal),0 20px 50px rgba(0,0,0,.6),0 0 30px rgba(0,169,199,.4)}
+.portrait{position:relative;aspect-ratio:5/4;max-width:100%;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.portrait::after{content:"";position:absolute;inset:14px;border:1px solid rgba(167,220,227,.35);border-radius:calc(var(--r-lg) - 10px);pointer-events:none}
+.about-band{position:relative;overflow:hidden}
+.about-band .wrap{position:relative}
+.spark{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px;width:100%;perspective:900px}
+.facts div{background:rgba(8,11,13,.42);border:1px solid var(--line);border-radius:var(--r-md);padding:22px 10px 18px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;font-size:.8rem;font-weight:500;color:var(--white);line-height:1.35;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.facts div:hover{transform:translateY(-6px) rotateX(8deg);border-color:var(--teal)}
+.facts .orb{width:58px;height:58px}
+@media(max-width:860px){.about{grid-template-columns:1fr}.portrait{aspect-ratio:4/3}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* social */
+.social{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.soc{background:rgba(8,11,13,.32);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 26px;display:flex;flex-direction:column;gap:12px;transition:border-color .3s,transform .3s,background .3s}
+.soc:hover{border-color:var(--teal);transform:translateY(-4px);background:rgba(8,11,13,.5)}
+.soc svg{width:30px;height:30px;fill:var(--aqua)}
+.soc h3{font-size:1.2rem}
+.soc small{font-size:.8rem;color:var(--aqua);overflow-wrap:anywhere}
+.soc em{font-style:normal;font-weight:600;font-size:.85rem;color:var(--teal);margin-top:auto;padding-top:6px}
+@media(max-width:780px){.social{grid-template-columns:1fr}}
+
+/* enquiry */
+.enquiry{background:var(--ink-2);border-top:1px solid var(--line);position:relative;overflow:hidden}
+.enquiry .wrap{position:relative}
+.enq{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--gap)}
+.enq-photo{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-lg);border:1px solid rgba(167,220,227,.28);box-shadow:0 30px 60px -30px rgba(0,169,199,.5);margin-top:6px}
+.contact{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line);width:100%}
+.contact li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;padding-block:14px;border-bottom:1px solid var(--line);font-size:.92rem}
+.contact b{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--aqua);padding-top:4px;font-weight:600}
+.contact span,.contact a{color:var(--white);overflow-wrap:anywhere}
+form{background:rgba(8,11,13,.5);backdrop-filter:blur(14px);box-shadow:0 30px 70px -30px rgba(0,169,199,.5);border:1px solid rgba(167,220,227,.28);border-radius:var(--r-lg);padding:clamp(22px,3.4vw,38px);display:grid;grid-template-columns:1fr 1fr;gap:18px;align-content:stretch;grid-template-rows:repeat(6,min-content) 1fr;position:relative;overflow:hidden}
+form::after{content:"";position:absolute;inset:auto 0 0 0;height:58%;z-index:-1;background:url(images/interior.jpg) 50% 70%/cover;opacity:.28;-webkit-mask-image:linear-gradient(transparent,#000 70%);mask-image:linear-gradient(transparent,#000 70%);pointer-events:none}
+.quick{align-self:end;gap:14px;padding-top:18px;border-top:1px solid rgba(167,220,227,.22)}
+.quick p{font-size:.9rem;color:var(--white);text-shadow:0 1px 10px var(--ink),0 0 4px var(--ink)}
+@media(max-width:860px){form::after{height:30%;opacity:.2}}
+.quick b{display:block;font:italic 600 1.3rem var(--display);color:var(--white);margin-bottom:2px}
+.quick-row{display:flex;flex-wrap:wrap;gap:12px}
+.quick-row .btn{flex:1 1 150px;width:auto;padding:14px 18px}
+.f{display:flex;flex-direction:column;gap:8px;min-width:0}
+.f.full{grid-column:1/-1}
+label{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--sage)}
+input,select,textarea{font:400 .98rem var(--body);color:var(--white);background:rgba(7,37,43,.7);border:1px solid rgba(167,220,227,.22);border-radius:14px;padding:13px 16px;width:100%;transition:border-color .2s,box-shadow .2s}
+textarea{resize:vertical;min-height:100px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(0,169,199,.18)}
+::placeholder{color:#6f7c7f}
+.hp{position:absolute;left:-9999px}
+form .btn{width:100%}
+.status{font-size:.9rem;font-weight:500;min-height:1.5em;color:var(--aqua)}
+.status.err{color:#ff9d8a}
+@media(max-width:860px){.enq{grid-template-columns:1fr}}
+@media(max-width:520px){form{grid-template-columns:1fr}}
+
+/* footer */
+.foot{border-top:1px solid var(--line);padding-block:44px 40px;font-size:.84rem}
+.foot .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:28px var(--gap)}
+.foot .wrap>*{min-width:0;display:flex;flex-direction:column;gap:8px}
+.foot h3{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--aqua);font-weight:600;margin-bottom:4px}
+.foot a:hover{color:var(--white)}
+.foot .copy{grid-column:1/-1;border-top:1px solid var(--line);padding-top:22px;flex-direction:row;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;font-size:.78rem}
+@media(max-width:860px){.foot .wrap{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.foot .wrap{grid-template-columns:1fr}}
+.wa{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--teal);display:grid;place-items:center;box-shadow:0 14px 34px -8px rgba(0,169,199,.7);transition:transform .25s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:26px;height:26px;fill:var(--ink)}
+
+/* grounds: every dark band sits on teal shades from the palette, never flat black */
+.band:not(.light){background:
+  radial-gradient(46% 60% at 88% 22%,rgba(0,169,199,.20),transparent 70%),
+  radial-gradient(40% 52% at 6% 80%,rgba(167,220,227,.10),transparent 70%),var(--pine)}
+.band.packages,.band.enquiry{background:
+  radial-gradient(50% 64% at 10% 18%,rgba(0,169,199,.26),transparent 70%),
+  radial-gradient(42% 56% at 94% 86%,rgba(167,220,227,.14),transparent 70%),
+  repeating-linear-gradient(120deg,transparent 0 46px,rgba(167,220,227,.035) 46px 47px),var(--pine-2)}
+.ticker{background:var(--pine)}
+.foot{background:linear-gradient(180deg,var(--pine),var(--ink))}
+.info{background:var(--pine)}
+
+/* reveal: position only, content is always visible */
+.js .rise{transform:perspective(1000px) rotateX(9deg) translateY(30px);transform-origin:50% 100%;transition:transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .3s,border-color .3s}
+.js .rise.in{transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ticker div,.rev .stars,.d-rev .stars,.rev::before{animation:none}
+  .js .rise{transform:none;transition:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+
+</head>
+<body>
+<div class="info">
+  <div class="wrap">
+    <span class="hide-s"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.200 7 13 7 13s7-7.800 7-13a7 7 0 0 0-7-7zm0 9.500A2.500 2.500 0 1 1 12 6.500a2.500 2.500 0 0 1 0 5z"/></svg><span data-text="addressShort">1st Floor, 52G, Durugam Road, Opp. Old LIC, Kallakurichi 606202</span></span>
+    <span><svg viewBox="0 0 24 24"><path d="M6.600 10.800a15 15 0 0 0 6.600 6.600l2.200-2.200a1 1 0 0 1 1-.200 11.400 11.400 0 0 0 3.600.600 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.500a1 1 0 0 1 1 1c0 1.200.200 2.400.600 3.600a1 1 0 0 1-.300 1z"/></svg><span data-text="phone">96006 00181</span></span>
+    <span class="hide-s"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></svg><span data-text="email">bngkallakurichi@gmail.com</span></span>
+    <span class="hide-s" data-text="hours">Mon to Fri 9 AM to 9 PM · Sat and Sun 8 AM to 9 PM</span>
+  </div>
+</div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Blow N Glow Salon, home"><img src="images/logo.png" alt="Blow N Glow. Hair, Skin, Makeup" width="854" height="233"></a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">MENU</button>
+    <nav class="nav" id="nav">
+      <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About us</a>
+      <a href="#enquiry">Contact</a>
+      <a class="btn btn-primary" href="#enquiry">Book appointment</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero">
+  <img class="hero-photo" src="images/hero.jpg" alt="Woman with long, glossy wavy hair blown back against a teal salon backdrop" width="1672" height="941" fetchpriority="high">
+  <canvas id="glitter" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-text">
+      <p class="eyebrow">Kallakurichi's premium salon</p>
+      <h1><span>Reveal Your</span><em>Natural Glow</em></h1>
+      <p class="lede">Expert hair, skin and makeup care for a more <i>confident you</i>.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#enquiry">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.500" y="5" width="17" height="15" rx="2.500"/><path d="M3.500 10h17M8 3v4M16 3v4"/></svg>Book appointment</a>
+        <a class="btn btn-ghost" href="#services">Explore services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="tiles">
+      <div class="tiles-row">
+        <a class="tile" href="#services" data-pick="Hair Care"><svg viewBox="0 0 24 24"><path d="M6 15.500a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM6 3.500a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM8 7.500 21 18M8 16.500 21 6"/></svg><b>Hair Care</b><small>Cut • Colour<br>Smoothening</small></a>
+        <a class="tile" href="#services" data-pick="Skin Services"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-7 7v3a7 7 0 0 0 14 0v-3a7 7 0 0 0-7-7zM9 11h.01M15 11h.01M9.500 15.200c1.500 1.200 3.500 1.200 5 0"/></svg><b>Skin Care</b><small>Facials • Clean-up<br>Skin Treatments</small></a>
+        <a class="tile" href="#services" data-pick="Makeup Services"><svg viewBox="0 0 24 24"><path d="M4 20c0-3 1.500-4.500 4-4.500L18 4a2 2 0 0 1 3 3L9.500 17c0 2-2 3-5.500 3z"/></svg><b>Makeup</b><small>Bridal • Party<br>Reception</small></a>
+        <a class="tile" href="#services" data-pick="Hair Spa"><svg viewBox="0 0 24 24"><path d="M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11zM9.500 14.500a2.500 2.500 0 0 0 2.500 2.500"/></svg><b>Hair Spa</b><small>Nourish • Repair<br>Strengthen</small></a>
+        <a class="tile" href="#services" data-pick="Hands & Feet"><svg viewBox="0 0 24 24"><path d="M12 20c-3.500-2-5.500-5-5.500-8.500 2 0 4 1.500 5.500 3.500 1.500-2 3.500-3.500 5.500-3.500 0 3.500-2 6.500-5.500 8.500zM12 15c-1.800-3-1.800-7 0-10.500 1.800 3.500 1.800 7.500 0 10.500z"/></svg><b>Hand &amp; Feet Care</b><small>Manicure • Pedicure<br>Nail Art</small></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div>
+  <span>Keratin</span><span>Hair botox</span><span>Smoothening</span><span>Butterfly layers</span><span>Global colour</span><span>Hydra facial</span><span>Bridal makeup</span><span>Groom makeover</span><span>Nail art</span>
+  <span>Keratin</span><span>Hair botox</span><span>Smoothening</span><span>Butterfly layers</span><span>Global colour</span><span>Hydra facial</span><span>Bridal makeup</span><span>Groom makeover</span><span>Nail art</span>
+</div></div>
+
+<section class="band services" id="services">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Our signature services</p><h2>Complete salon and beauty care.</h2></div>
+      <p>Pick a service to see what it includes and what clients say about it.</p>
+    </div>
+    <div class="tabs" id="svc-tabs" role="tablist" aria-label="Services"></div>
+    <div class="panel-stage"><article class="panel" id="svc-panel" role="tabpanel"></article></div>
+  </div>
+</section>
+
+<section class="band packages" id="packages">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Popular salon packages</p><h2>Curated care for every occasion.</h2></div>
+      <p>Treatments that work best together, planned as one visit or a series. Ask us for the details.</p>
+    </div>
+    <div class="pk-grid">
+      <article class="pk rise"><small>Skin</small><h3>Glow Skin Package</h3>
+        <ul><li>Hydra facial</li><li>Skin brightening</li><li>De-tan</li><li>Glow therapy</li></ul>
+        <div class="pk-foot"><a class="btn btn-ghost" href="#enquiry" data-service="Glow Skin Package">Enquire</a></div></article>
+      <article class="pk rise"><small>Hair</small><h3>Hair Makeover Package</h3>
+        <ul><li>Hair cut and styling</li><li>Hair spa or botox</li><li>Smoothening or keratin</li><li>Hair colour or highlights</li></ul>
+        <div class="pk-foot"><a class="btn btn-ghost" href="#enquiry" data-service="Hair Makeover Package">Enquire</a></div></article>
+      <article class="pk rise"><small>Before the wedding</small><h3>Pre-Bridal Package</h3>
+        <ul><li>Skin rejuvenation</li><li>Hair care and spa</li><li>De-tan treatment</li><li>Facial and glow care</li></ul>
+        <div class="pk-foot"><a class="btn btn-ghost" href="#enquiry" data-service="Pre-Bridal Package">Enquire</a></div></article>
+      <article class="pk star rise"><small>The big day</small><h3>Bridal Package</h3>
+        <ul><li>Bridal makeup</li><li>Hair styling and draping</li><li>Pre-bridal care, 3 to 5 sessions</li><li>Trial makeup</li></ul>
+        <div class="pk-foot"><a class="btn btn-primary" href="#enquiry" data-service="Bridal Package">Enquire</a></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="transformations">
+  <div class="wrap tf">
+    <div class="stack">
+      <p class="eyebrow">Real transformations</p>
+      <h2>Before and after, in our own chairs.</h2>
+      <p>Drag the handle to compare. This is a botox hair treatment on dry, frizzy hair, photographed in the salon on the same day.</p>
+      <p>Keratin, smoothening and nanoplasty give the same glass finish for different hair types. We check your hair first and recommend the one that suits it.</p>
+      <a class="btn btn-primary" href="#enquiry" data-service="Hair Care">Ask about hair treatments</a>
+    </div>
+    <div>
+      <div class="tf-grid">
+        <div class="cmp" id="cmp">
+          <img src="images/ba-after.jpg" alt="After botox hair treatment: straight, glossy shoulder-length hair" loading="lazy">
+          <img class="before" src="images/ba-before.jpg" alt="Before botox hair treatment: dry and frizzy hair" loading="lazy">
+          <span class="tag l">Before</span><span class="tag r">After</span>
+          <span class="knob"><svg viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+          <input type="range" id="cmp-range" min="0" max="100" value="50" aria-label="Compare before and after">
+        </div>
+        <div class="res"><img src="images/result-keratin.jpg" alt="Long straight hair after a keratin treatment" loading="lazy"><span class="tag l">Keratin</span></div>
+        <div class="res"><img src="images/result-smooth.jpg" alt="Smooth frizz-free hair after smoothening" loading="lazy"><span class="tag l">Smoothening</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="gallery" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Gallery</p><h2>Recent work from Blow N Glow.</h2></div>
+      <p>Brides, grooms, everyday hair and relaxing head spa sessions done by our team in Kallakurichi.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filter gallery">
+      <button type="button" data-f="all" aria-pressed="true">All</button>
+      <button type="button" data-f="bridal" aria-pressed="false">Bridal</button>
+      <button type="button" data-f="hair" aria-pressed="false">Hair</button>
+      <button type="button" data-f="grooming" aria-pressed="false">Grooming</button>
+      <button type="button" data-f="relaxation" aria-pressed="false">Relaxation</button>
+    </div>
+    <div class="gallery" id="gallery-grid">
+      <figure class="shot tall vid" data-c="bridal"><video src="images/bridal-reel.mp4" poster="images/bridal-reel.jpg" muted loop playsinline preload="none" aria-label="Bridal makeup reel: a bride in a navy and magenta silk saree with temple jewellery"></video><button type="button" class="snd" aria-label="Turn sound on" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path class="on" d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/><path class="off" d="M16 9.500l5 5M21 9.500l-5 5"/></svg></button><figcaption><small>Bridal · Video</small>Wedding look reel</figcaption></figure>
+      <figure class="shot" data-c="bridal"><img src="images/bridal-closeup.jpg" alt="Close-up of South Indian bridal makeup with gold jewellery" loading="lazy"><figcaption><small>Bridal</small>Muhurtham makeup</figcaption></figure>
+      <figure class="shot" data-c="bridal"><img src="images/bridal-reception-2.jpg" alt="Bride in a blue silk saree with reception makeup and stone jewellery" loading="lazy"><figcaption><small>Bridal</small>Reception glam</figcaption></figure>
+      <figure class="shot tall vid" data-c="bridal"><video src="images/bridal-reel-2.mp4" poster="images/bridal-reel-2.jpg" muted loop playsinline preload="none" aria-label="Bridal makeup reel: a bride in a magenta silk saree with temple jewellery"></video><button type="button" class="snd" aria-label="Turn sound on" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path class="on" d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/><path class="off" d="M16 9.500l5 5M21 9.500l-5 5"/></svg></button><figcaption><small>Bridal · Video</small>Bridal makeup reel</figcaption></figure>
+      <figure class="shot" data-c="hair"><img src="images/hair-butterfly.jpg" alt="Butterfly layer cut with soft blonde tones" loading="lazy"><figcaption><small>Hair</small>Butterfly layer cut</figcaption></figure>
+      <figure class="shot" data-c="bridal"><img src="images/bridal-silk.jpg" alt="Smiling bride in a red and green silk saree with mehendi" loading="lazy"><figcaption><small>Bridal</small>Silk saree bride</figcaption></figure>
+      <figure class="shot" data-c="bridal"><img src="images/bridal-reception.jpg" alt="Reception look with a blue silk saree and diamond-set jewellery" loading="lazy"><figcaption><small>Bridal</small>Reception look</figcaption></figure>
+      <figure class="shot" data-c="hair"><img src="images/hair-glossy.jpg" alt="Long glossy straight hair after smoothening" loading="lazy" style="object-position:50% 45%"><figcaption><small>Hair</small>Glossy smoothening</figcaption></figure>
+      <figure class="shot" data-c="hair"><img src="images/result-smooth.jpg" alt="Back view of long, straight, frizz-free black hair" loading="lazy" style="object-position:50% 30%"><figcaption><small>Hair</small>Frizz-free finish</figcaption></figure>
+      <figure class="shot" data-c="hair"><img src="images/ba-after.jpg" alt="Back view of straight shoulder-length hair with highlights after a botox hair treatment" loading="lazy" style="object-position:50% 35%"><figcaption><small>Hair</small>Botox treatment result</figcaption></figure>
+      <figure class="shot vid" data-c="relaxation"><video src="images/head-spa-reel.mp4" poster="images/head-spa-reel.jpg" muted loop playsinline preload="none" aria-label="Head spa reel: warm oil, scalp massage and cleansing"></video><button type="button" class="snd" aria-label="Turn sound on" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M4 9.500v5h3.500L12 18.500v-13L7.500 9.500z"/><path class="on" d="M15.500 9a4 4 0 0 1 0 6M18 6.500a7.500 7.500 0 0 1 0 11"/><path class="off" d="M16 9.500l5 5M21 9.500l-5 5"/></svg></button><figcaption><small>Relaxation · Video</small>Head spa and massage</figcaption></figure>
+      <figure class="shot" data-c="bridal"><img src="images/bridal-hairdo.jpg" alt="Bridal bun hairdo dressed with red roses" loading="lazy"><figcaption><small>Bridal</small>Rose bun hairdo</figcaption></figure>
+      <figure class="shot" data-c="grooming"><img src="images/groom-wedding.jpg" alt="Groom in an ivory embroidered sherwani with styled hair and a shaped beard" loading="lazy" style="object-position:50% 12%"><figcaption><small>Grooming</small>Wedding groom look</figcaption></figure>
+      <figure class="shot" data-c="grooming"><img src="images/groom-natural.jpg" alt="Man in a black shirt in the salon chair with a fresh haircut and trimmed beard" loading="lazy" style="object-position:55% 12%"><figcaption><small>Grooming</small>Natural men's grooming</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="band reviews light" id="reviews">
+  <canvas class="spark" data-tone="light" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="rev-head">
+      <div class="head">
+        <div><p class="eyebrow">What our clients say</p><h2>Real experiences from happy customers.</h2></div>
+        <p>Polite staff, a clean salon and advice before every service are what clients mention most. These are their own words from Google.</p>
+      </div>
+      <div class="scores">
+        <div class="score"><b>4.9<i>★</i></b><span>Google<small>1,226 reviews</small></span></div>
+        <div class="score"><b>5.0<i>★</i></b><span>Justdial<small>1,191 ratings</small></span></div>
+      </div>
+    </div>
+    <div class="rev-track" id="rev-track" tabindex="0" aria-label="Client reviews">
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>Such a great work by Lavanya. I came here a day before my wedding for a facial… they consulted me about which would suit me best.</p><footer>Priyanka S.<span>Google</span></footer></article>
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>We regularly bring our little girl here for her haircuts… they always suggest hairstyles that suit her hair density and face shape.</p><footer>Karthik SP<span>Google</span></footer></article>
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>Went for my 2-year-old's haircut… even though my kid was crying, they helped him relax and completed the work. Highly professional.</p><footer>Deboral E.<span>Google</span></footer></article>
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>I've been taking service at this salon for the past 2 years. Very clean, neat and professional.</p><footer>Jawahar P.<span>Google</span></footer></article>
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>Siva did a fantastic job. Very professional and attentive to my preferences.</p><footer>T.S. Saran<span>Google</span></footer></article>
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>Premium work at reasonable cost.</p><footer>Mohan R.<span>Google</span></footer></article>
+      <article class="rev"><div class="stars" aria-label="5 stars">★★★★★</div><p>Suganthi &amp; Sangeetha did nanoplasty… both did good work. Very kind and humble.</p><footer>Sujatha J.<span>Google</span></footer></article>
+    </div>
+    <div class="rev-cta">
+      <a class="btn btn-primary" data-link="google" href="#enquiry" target="_blank" rel="noopener">Read our reviews on Google</a>
+      <a class="btn btn-ghost" data-link="googleReview" href="#enquiry" target="_blank" rel="noopener">Write a review</a>
+    </div>
+  </div>
+</section>
+
+<section class="band about-band" id="about">
+  <canvas class="spark" aria-hidden="true"></canvas>
+  <div class="wrap about">
+    <div class="about-media rise"><div class="portrait"><img src="images/interior.jpg" alt="Blow N Glow salon reception with the illuminated logo wall and arched neon mirrors" loading="lazy"></div><img class="inset" src="images/about.jpg" alt="A Blow N Glow stylist finishing a client's coloured hair" loading="lazy"></div>
+    <div class="stack rise">
+      <p class="eyebrow">About us</p>
+      <h2>The Blow <span class="n">N</span> Glow story.</h2>
+      <p>Blow N Glow® is a women-owned family salon and bridal studio in Kallakurichi, opposite Old LIC on Durugam Road. Hair, skin, nails, makeup and bridal work are all done under one roof, for women, men and children.</p>
+      <p>Every visit starts with a consultation. Our stylists look at your face shape, hair density and skin before they suggest a cut, colour or treatment, and they explain each step. Many of our clients have been coming to us for years.</p>
+      <div class="facts">
+        <div><span class="orb lit"><svg viewBox="0 0 24 24"><path d="M6 15.500a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM6 3.500a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM8 7.500 21 18M8 16.500 21 6"/></svg></span>Experienced stylists</div>
+        <div><span class="orb lit"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.500 20.500c1-4 4-6 7.500-6s6.500 2 7.500 6"/></svg></span>Personalised care</div>
+        <div><span class="orb lit"><svg viewBox="0 0 24 24"><path d="M9 9h6v10a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2zM10.500 9V6h3v3M12 6V3M10.500 14.500h3M12 13v3"/></svg></span>Quality products</div>
+        <div><span class="orb lit"><svg viewBox="0 0 24 24"><path d="M12 3l7.500 3v5.500c0 4.500-3 8-7.500 9.500-4.500-1.500-7.500-5-7.500-9.500V6zM8.800 12l2.300 2.300 4.200-4.600"/></svg></span>Hygienic environment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="social" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div><p class="eyebrow">Follow us</p><h2>Fresh looks, posted as they happen.</h2></div>
+      <p>New transformations, offers and behind-the-chair moments go up on our pages first.</p>
+    </div>
+    <div class="social">
+      <a class="soc rise" data-link="instagram" href="#enquiry" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2.200c3.200 0 3.600 0 4.800.100 3.300.100 4.800 1.700 4.900 4.900.100 1.300.100 1.600.100 4.800s0 3.600-.100 4.800c-.100 3.200-1.700 4.800-4.900 4.900-1.300.100-1.600.100-4.800.100s-3.600 0-4.800-.100c-3.300-.100-4.800-1.700-4.900-4.900C2.200 15.600 2.200 15.200 2.200 12s0-3.600.100-4.800C2.400 3.900 4 2.400 7.200 2.300 8.400 2.200 8.800 2.200 12 2.200zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.200a3.200 3.200 0 1 1 0-6.400 3.200 3.200 0 0 1 0 6.400zm5.200-9.600a1.200 1.200 0 1 0 0 2.400 1.200 1.200 0 0 0 0-2.400z"/></svg>
+        <h3>Instagram</h3><small>@blownglow.kallakurichi</small><p>Reels, before-and-afters and the day's best finishes.</p><em>Follow us →</em>
+      </a>
+      <a class="soc rise" data-link="facebook" href="#enquiry" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.600 9.900v-7H7.900V12h2.500V9.800c0-2.500 1.500-3.900 3.800-3.900 1.100 0 2.200.200 2.200.200v2.500h-1.200c-1.200 0-1.600.800-1.600 1.600V12h2.800l-.400 2.900h-2.300v7A10 10 0 0 0 22 12z"/></svg>
+        <h3>Facebook</h3><small>/BlowNGlowSalon</small><p>Offers, festive packages and salon updates.</p><em>Like our page →</em>
+      </a>
+      <a class="soc rise" data-link="google" href="#enquiry" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.200 7 13 7 13s7-7.800 7-13a7 7 0 0 0-7-7zm0 9.500A2.500 2.500 0 1 1 12 6.500a2.500 2.500 0 0 1 0 5z"/></svg>
+        <h3>Google Maps</h3><small>Opp. Old LIC, Kallakurichi</small><p>Directions, opening hours and client reviews.</p><em>Get directions →</em>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band enquiry" id="enquiry">
+  <canvas class="spark" aria-hidden="true"></canvas>
+  <div class="wrap enq">
+    <div class="stack">
+      <p class="eyebrow">Book your appointment</p>
+      <h2>Choose your service, date and time.</h2>
+      <p>We will take care of the rest. Send the form and we will call or WhatsApp you to confirm your slot.</p>
+      <ul class="contact">
+        <li><b>Call</b><a data-tel href="#enquiry"><span data-text="phone">96006 00181</span></a></li>
+        <li><b>Email</b><span data-text="email">bngkallakurichi@gmail.com</span></li>
+        <li><b>Address</b><span data-text="address">1st Floor, 52G, Durugam Road, Opp. Old LIC, Raja Nagar, Kallakurichi, Tamil Nadu 606202</span></li>
+        <li><b>Hours</b><span data-text="hours">Mon to Fri 9 AM to 9 PM · Sat and Sun 8 AM to 9 PM</span></li>
+      </ul>
+      <img class="enq-photo" src="images/booking.jpg" alt="Woman with copper and berry toned waves smiling with her eyes closed, on a teal backdrop" width="1200" height="800" loading="lazy">
+    </div>
+    <form id="enquiry-form" novalidate>
+      <div class="f"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required placeholder="Your name"></div>
+      <div class="f"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="10-digit mobile number"></div>
+      <div class="f full"><label for="f-service">Service</label>
+        <select id="f-service" name="service" required>
+          <option value="">Choose a service</option>
+          <optgroup label="Services"><option>Hair Care</option><option>Hair Spa</option><option>Hairstyle</option><option>Makeup Services</option><option>Skin Services</option><option>Grooming</option><option>Hands &amp; Feet</option></optgroup>
+          <optgroup label="Packages"><option>Glow Skin Package</option><option>Hair Makeover Package</option><option>Pre-Bridal Package</option><option>Bridal Package</option></optgroup>
+          <option>Not sure yet</option>
+        </select></div>
+      <div class="f"><label for="f-date">Preferred date</label><input id="f-date" name="date" type="date"></div>
+      <div class="f"><label for="f-time">Preferred time</label>
+        <select id="f-time" name="time">
+          <option value="">Any time</option><option>Morning, 9 to 12</option><option>Afternoon, 12 to 4</option><option>Evening, 4 to 9</option>
+        </select></div>
+      <div class="f full"><label for="f-message">Message</label><textarea id="f-message" name="message" placeholder="Anything we should know? Hair length, occasion, number of people…"></textarea></div>
+      <input class="hp" id="f-website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="f full"><button class="btn btn-primary" id="f-submit" type="submit">Book now</button></div>
+      <p class="status f full" id="f-status" role="status" aria-live="polite"></p>
+      <div class="quick f full">
+        <p><b>Prefer to talk?</b>Message or call us and we will fix your slot right away.</p>
+        <div class="quick-row">
+          <a class="btn btn-ghost" data-link="whatsapp" href="#enquiry" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2zm0 18.200a8.200 8.200 0 0 1-4.200-1.200l-.300-.200-3 .800.800-2.900-.200-.300A8.200 8.200 0 1 1 12 20.200z"/></svg>WhatsApp</a>
+          <a class="btn btn-ghost" data-tel href="#enquiry"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.600 10.800a15 15 0 0 0 6.600 6.600l2.200-2.200a1 1 0 0 1 1-.200 11.400 11.400 0 0 0 3.600.600 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.500a1 1 0 0 1 1 1c0 1.200.200 2.400.600 3.600a1 1 0 0 1-.300 1z"/></svg><span data-text="phone">96006 00181</span></a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <a class="logo big" href="#top" aria-label="Blow N Glow Salon, back to top"><img src="images/logo.png" alt="Blow N Glow. Hair, Skin, Makeup" width="854" height="233" loading="lazy"></a>
+      <p style="margin-top:10px">Kallakurichi's premium unisex salon.</p>
+    </div>
+    <div><h3>Address</h3><span data-text="address">1st Floor, 52G, Durugam Road, Opp. Old LIC, Raja Nagar, Kallakurichi, Tamil Nadu 606202</span></div>
+    <div><h3>Call / WhatsApp</h3><span data-text="phone">96006 00181</span><span data-text="email">bngkallakurichi@gmail.com</span><span data-text="hours">Mon to Fri 9 AM to 9 PM · Sat and Sun 8 AM to 9 PM</span></div>
+    <div><h3>Quick links</h3><a href="#services">Services</a><a href="#packages">Packages</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#about">About us</a></div>
+    <div class="copy"><span>© <span id="year">2026</span> Blow N Glow Salon. All rights reserved.</span><span data-text="gst">GST: 33CKBPS6006F2ZF</span></div>
+  </div>
+</footer>
+
+<a class="wa" data-link="whatsapp" href="#enquiry" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.600 15.100L2 22l5-1.300A10 10 0 1 0 12 2zm5.800 14.200c-.200.700-1.400 1.300-2 1.400-.500.100-1.200.100-1.900-.100-.400-.100-1-.300-1.700-.600-3-1.300-4.900-4.300-5.100-4.500-.100-.200-1.200-1.600-1.200-3s.800-2.200 1-2.500c.300-.300.600-.300.800-.300h.600c.200 0 .400 0 .600.500.200.600.800 2 .900 2.100.100.200.100.300 0 .500-.100.200-.100.300-.300.500l-.400.500c-.100.100-.300.300-.100.600.200.300.700 1.200 1.600 1.900 1.100 1 2 1.300 2.300 1.400.300.100.500.100.600-.100.200-.200.700-.800.900-1.100.200-.300.400-.200.600-.100.300.100 1.600.800 1.900.900.300.100.500.200.500.300.100.200.100.700-.100 1.700z"/></svg>
+</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============ SITE SETTINGS: edit these values only ============ */
+var CONFIG = {
+  scriptUrl: "",                                   // Google Apps Script Web App URL (ends with /exec)
+  phone: "96006 00181",
+  whatsapp: "919600600181",                        // digits only, with country code
+  email: "bngkallakurichi@gmail.com",
+  address: "1st Floor, 52G, Durugam Road, Opp. Old LIC, Raja Nagar, Kallakurichi, Tamil Nadu 606202",
+  addressShort: "1st Floor, 52G, Durugam Road, Opp. Old LIC, Kallakurichi 606202",
+  hours: "Mon to Fri 9 AM to 9 PM · Sat and Sun 8 AM to 9 PM",
+  gst: "GST: 33CKBPS6006F2ZF",
+  instagram: "https://www.instagram.com/blownglow.kallakurichi/",
+  facebook: "https://www.facebook.com/BlowNGlowSalon",
+  google: "https://www.google.com/maps/search/?api=1&query=Blow+N+Glow+Salon+Kallakurichi",
+  googleReview: ""                                 // "Write a review" link from your Google Business Profile
+};
+/* =============================================================== */
+
+document.documentElement.classList.add("js");
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// links and contact details from CONFIG
+(function(){
+  var links = {
+    whatsapp: CONFIG.whatsapp ? "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent("Hi Blow N Glow, I would like to book an appointment.") : "",
+    instagram: CONFIG.instagram, facebook: CONFIG.facebook, google: CONFIG.google,
+    googleReview: CONFIG.googleReview || CONFIG.google
+  };
+  document.querySelectorAll("[data-link]").forEach(function(a){
+    var url = links[a.dataset.link];
+    if (url) a.href = url; else { a.removeAttribute("target"); a.title = "Link will be added soon"; }
+  });
+  document.querySelectorAll("[data-text]").forEach(function(el){ if (CONFIG[el.dataset.text]) el.textContent = CONFIG[el.dataset.text]; });
+  document.querySelectorAll("[data-tel]").forEach(function(a){ if (CONFIG.phone) a.href = "tel:+91" + CONFIG.phone.replace(/\D/g, "").slice(-10); });
+})();
+
+// header + mobile menu
+(function(){
+  var top = document.getElementById("top"), btn = document.getElementById("menu-btn"), nav = document.getElementById("nav");
+  addEventListener("scroll", function(){ top.classList.toggle("scrolled", scrollY > 40); }, { passive: true });
+  btn.addEventListener("click", function(){ var o = nav.classList.toggle("open"); btn.setAttribute("aria-expanded", o); btn.textContent = o ? "CLOSE" : "MENU"; });
+  nav.addEventListener("click", function(e){ if (e.target.closest("a")) { nav.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); btn.textContent = "MENU"; } });
+})();
+
+// rise-in on scroll (position only)
+(function(){
+  var els = document.querySelectorAll(".rise");
+  if (!("IntersectionObserver" in window)) { els.forEach(function(e){ e.classList.add("in"); }); return; }
+  var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+  els.forEach(function(e){ io.observe(e); });
+})();
+
+// depth: the hero photo and the wall of service tiles turn against the pointer, service cards tilt on hover
+(function(){
+  if (matchMedia("(hover:none),(prefers-reduced-motion:reduce)").matches) return;
+  var hero = document.getElementById("hero");
+  hero.addEventListener("pointermove", function(e){
+    var r = hero.getBoundingClientRect();
+    hero.style.setProperty("--px", ((e.clientX - r.left) / r.width - .5).toFixed(3)); hero.style.setProperty("--py", ((e.clientY - r.top) / r.height - .5).toFixed(3));
+  });
+  hero.addEventListener("pointerleave", function(){ hero.style.setProperty("--px", 0); hero.style.setProperty("--py", 0); });
+  document.querySelectorAll(".pk,.shot,.soc,.about-media,.res").forEach(bind);
+  new MutationObserver(function(){ var m = document.querySelector("#svc-panel .p-media"); if (m) bind(m); }).observe(document.getElementById("svc-panel"), { childList: true });
+  function bind(c){
+    if (c.dataset.tilt) return; c.dataset.tilt = "1";
+    c.addEventListener("pointermove", function(e){
+      var r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      c.style.transition = "transform .1s"; c.style.transform = "perspective(900px) rotateX(" + (-y * 9) + "deg) rotateY(" + (x * 11) + "deg) translateZ(8px)";
+    });
+    c.addEventListener("pointerleave", function(){ c.style.transition = ""; c.style.transform = ""; });
+  }
+})();
+
+// services: edit text, photos and the client review shown for each service here
+var ICONS = {
+  scissors: "M6 15.500a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM6 3.500a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5zM8 7.500 21 18M8 16.500 21 6",
+  drop: "M12 3c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11zM9.500 14.500a2.500 2.500 0 0 0 2.500 2.500",
+  lotus: "M12 20c-3.500-2-5.500-5-5.500-8.500 2 0 4 1.500 5.500 3.500 1.500-2 3.500-3.500 5.500-3.500 0 3.500-2 6.500-5.500 8.500zM12 15c-1.800-3-1.800-7 0-10.500 1.800 3.500 1.800 7.500 0 10.500z",
+  waves: "M7 4c-2 3 2 5 0 8s2 5 0 8M12 4c-2 3 2 5 0 8s2 5 0 8M17 4c-2 3 2 5 0 8s2 5 0 8",
+  crown: "M3 8l4.500 4L12 5l4.500 7L21 8l-2 10H5zM5 21h14",
+  brush: "M4 20c0-3 1.500-4.500 4-4.500L18 4a2 2 0 0 1 3 3L9.500 17c0 2-2 3-5.500 3z",
+  sparkle: "M11 4l2.200 5.800L19 12l-5.800 2.200L11 20l-2.200-5.800L3 12l5.800-2.200zM19 3v4M17 5h4",
+  beard: "M4 9c0 8 3.500 12 8 12s8-4 8-12c-2 2-4.500 2-6 1-1-.700-3-.700-4 0-1.500 1-4 1-6-1zM9.500 15h5",
+  face: "M12 3a7 7 0 0 0-7 7v3a7 7 0 0 0 14 0v-3a7 7 0 0 0-7-7zM9 11h.01M15 11h.01M9.500 15.200c1.500 1.200 3.500 1.200 5 0",
+  leaf: "M20 4C10 4 5 9 5 15c0 2 .700 3.500.700 3.500S7.500 19 9.500 19C15.500 19 20 14 20 4zM4 21c2-6 6-9.500 11-12.500",
+  thread: "M4 6h16M4 18h16M7 6l10 12M17 6 7 18",
+  bowl: "M4 11h16a8 8 0 0 1-16 0zM14 11l5-7",
+  bloom: "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 3c2 2 2 4 0 6-2-2-2-4 0-6zM12 21c-2-2-2-4 0-6 2 2 2 4 0 6zM3 12c2-2 4-2 6 0-2 2-4 2-6 0zM21 12c-2 2-4 2-6 0 2-2 4-2 6 0z",
+  curl: "M7 3c6 0 7 5 2.500 5.500S5 13 10 13.500 16 18 11 21M15 3c4 1.500 4 5.500 1 7",
+  nail: "M9 3h6v8a3 3 0 0 1-6 0zM8 14h8v7H8z",
+  palette: "M12 3a9 9 0 1 0 0 18c1.500 0 2-1 2-2s-1-1.500 0-2.500 4 0 5-3A9 9 0 0 0 12 3zM7.500 11h.01M10 7.500h.01M14.500 7.500h.01"
+};
+var SERVICES = [
+  { key: "Hair Care", title: ["Hair Care", "Services"], icon: "scissors", img: "images/svc-hair-care.jpg", pos: "50% 12%",
+    desc: "Cuts shaped to your face and the way your hair falls, plus colour and treatments that leave it smooth and easy to manage.",
+    subs: [["scissors", "Haircut & Styling"], ["drop", "Hair Coloring"], ["waves", "Smoothening"], ["sparkle", "Keratin Treatment"], ["leaf", "Hair Fall Care"]],
+    review: { text: "Suganthi & Sangeetha did nanoplasty… both did good work. Very kind and humble.", name: "Sujatha J." } },
+  { key: "Hair Spa", title: ["Hair Spa", "Therapy"], icon: "drop", img: "images/svc-hair-spa.jpg", pos: "62% 50%",
+    desc: "A relaxing wash, massage and mask that cleans the scalp and brings back softness and shine.",
+    subs: [["drop", "Deep Nourishment"], ["lotus", "Healthy Scalp"], ["waves", "Stronger Hair"], ["sparkle", "Natural Shine"]],
+    review: { text: "I've been taking service at this salon for the past 2 years. Very clean, neat and professional.", name: "Jawahar P." } },
+  { key: "Hairstyle", title: ["Hair", "Style"], icon: "bloom", img: "images/svc-hairstyle.jpg", pos: "50% 20%", tag: "Styles for every occasion",
+    desc: "Buns, curls and dressed hairdos with flowers and accessories for weddings, functions and shoots.",
+    subs: [["bloom", "Bridal Hairstyle"], ["curl", "Party Hairstyle"], ["waves", "Traditional Hairstyle"], ["sparkle", "Modern Hairstyle"]],
+    review: { text: "We regularly bring our little girl here for her haircuts… they always suggest hairstyles that suit her hair density and face shape.", name: "Karthik SP" } },
+  { key: "Makeup Services", title: ["Bridal Makeup", "& Hairstyle"], icon: "brush", img: "images/svc-makeup.jpg", pos: "58% 30%", tag: "Timeless bridal looks for your special day",
+    desc: "Makeup and hair for every wedding function and celebration, with a trial beforehand so the day itself holds no surprises.",
+    subs: [["crown", "Bridal Makeup"], ["bloom", "Bridal Hairstyle"], ["sparkle", "Complete Bridal Look"], ["brush", "Party Makeup"], ["palette", "Reception Look"]],
+    review: { text: "Premium work at reasonable cost.", name: "Mohan R." } },
+  { key: "Skin Services", title: ["Skin Care", "Services"], icon: "face", img: "images/skin-care.jpg", pos: "62% 30%", tag: "Nourish  |  Rejuvenate  |  Glow",
+    desc: "Facials and clean-ups chosen after a skin check, plus threading and waxing, for clear and rested skin.",
+    subs: [["face", "Facials"], ["drop", "Clean-ups"], ["thread", "Threading"], ["bowl", "Waxing"], ["sparkle", "Skin Treatments"]],
+    review: { text: "Such a great work by Lavanya. I came here a day before my wedding for a facial… they consulted me about which would suit me best.", name: "Priyanka S." } },
+  { key: "Grooming", title: ["Men", "Grooming"], icon: "beard", img: "images/svc-grooming.jpg", pos: "44% 40%",
+    desc: "Sharp cuts, clean beards and skin care for men, including full groom makeovers.",
+    subs: [["scissors", "Haircut & Styling"], ["beard", "Beard Grooming"], ["face", "Facial Care"], ["sparkle", "Clean Look"]],
+    review: { text: "Siva did a fantastic job. Very professional and attentive to my preferences.", name: "T.S. Saran" } },
+  { key: "Hands & Feet", title: ["Hand &", "Feet Care"], icon: "nail", img: "images/hands-feet.jpg", pos: "50% 50%", tag: "Pamper  |  Refresh  |  Rejuvenate",
+    desc: "Tidy, cared-for hands and feet, finished with the nail look you choose.",
+    subs: [["nail", "Manicure"], ["lotus", "Pedicure"], ["sparkle", "Nail Art"], ["leaf", "Foot Care"]],
+    review: { text: "Quality products, value for money. I'm happy with their service and rates.", name: "Google reviewer" } }
+];
+(function(){
+  var tabs = document.getElementById("svc-tabs"), panel = document.getElementById("svc-panel");
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function icon(name){
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"), path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    svg.setAttribute("viewBox", "0 0 24 24"); path.setAttribute("d", ICONS[name]); svg.appendChild(path); return svg;
+  }
+  function orb(name, lit){ var o = el("span", "orb" + (lit ? " lit" : "")); o.appendChild(icon(name)); return o; }
+  function show(n, animate){
+    var d = SERVICES[n];
+    Array.prototype.forEach.call(tabs.children, function(t, k){ t.setAttribute("aria-selected", k === n); t.tabIndex = k === n ? 0 : -1; });
+    panel.textContent = "";
+    var media = el("div", "p-media");
+    if (d.video) {
+      var v = el("video"); v.src = d.video; v.poster = d.poster; v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.setAttribute("aria-label", d.key + " reel from Blow N Glow");
+      media.appendChild(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function(){});
+    }
+    else if (d.img) { var im = el("img"); im.src = d.img; im.alt = d.key + " at Blow N Glow"; im.style.objectPosition = d.pos; media.appendChild(im); }
+    else { media.appendChild(icon(d.icon)); media.appendChild(el("small", "", "Photo coming soon")); }
+    var body = el("div", "p-body");
+    body.appendChild(el("p", "eyebrow", "Blow N Glow"));
+    var h = el("h3", "p-title", d.title[0] + (d.joined ? "" : " ")); h.appendChild(el("em", "", d.title[1])); body.appendChild(h);
+    if (d.tag) body.appendChild(el("p", "p-tag", d.tag));
+    body.appendChild(el("p", "", d.desc));
+    var ul = el("ul", "subs"); d.subs.forEach(function(sv){ var li = el("li"); li.appendChild(orb(sv[0], true)); li.appendChild(el("span", "", sv[1])); ul.appendChild(li); }); body.appendChild(ul);
+    var rev = el("div", "d-rev"); rev.appendChild(el("b", "", "What a client said"));
+    var st = el("div", "stars", "★★★★★"); st.setAttribute("aria-label", "5 stars"); rev.appendChild(st);
+    rev.appendChild(el("p", "", d.review.text));
+    var f = el("footer"); f.appendChild(el("span", "", d.review.name)); f.appendChild(el("i", "", d.review.sample ? "Sample" : "Google review")); rev.appendChild(f); body.appendChild(rev);
+    var a = el("a", "btn btn-primary", "Book this service"); a.href = "#enquiry";
+    a.addEventListener("click", function(){ document.getElementById("f-service").value = d.key; }); body.appendChild(a);
+    panel.appendChild(media); panel.appendChild(body);
+    if (animate) { panel.classList.remove("flip"); void panel.offsetWidth; panel.classList.add("flip"); }
+  }
+  SERVICES.forEach(function(d, k){
+    var b = el("button", "tab"); b.type = "button"; b.setAttribute("role", "tab"); b.appendChild(orb(d.icon)); b.appendChild(el("span", "", d.key));
+    b.addEventListener("click", function(){ show(k, true); });
+    b.addEventListener("keydown", function(e){
+      var dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!dir) return;
+      var n = (k + dir + SERVICES.length) % SERVICES.length; show(n, true); tabs.children[n].focus();
+    });
+    tabs.appendChild(b);
+  });
+  show(0, false);
+  document.querySelectorAll("[data-pick]").forEach(function(a){
+    a.addEventListener("click", function(){ for (var k = 0; k < SERVICES.length; k++) if (SERVICES[k].key === a.dataset.pick) show(k, true); });
+  });
+})();
+
+// before / after slider
+(function(){
+  var box = document.getElementById("cmp"), range = document.getElementById("cmp-range");
+  function set(){ box.style.setProperty("--p", range.value + "%"); }
+  range.addEventListener("input", set); set();
+})();
+
+// reviews: 3D coverflow. Cards turn towards the middle of the row as it scrolls.
+(function(){
+  var track = document.getElementById("rev-track"), cards = track.querySelectorAll(".rev"), queued = false;
+  function paint(){
+    queued = false;
+    var t = track.getBoundingClientRect(), mid = t.left + t.width / 2;
+    cards.forEach(function(c){
+      var r = c.getBoundingClientRect(), d = Math.max(-1.4, Math.min(1.4, (r.left + r.width / 2 - mid) / (t.width / 2)));
+      c.style.setProperty("--r", (-d * 26).toFixed(1) + "deg"); c.style.setProperty("--z", (-Math.abs(d) * 90).toFixed(0) + "px");
+    });
+  }
+  function ask(){ if (!queued) { queued = true; requestAnimationFrame(paint); } }
+  track.addEventListener("scroll", ask, { passive: true }); addEventListener("resize", ask); paint();
+})();
+
+// about, reviews and booking: glitter backdrop drawn on a 2D canvas, running only while the section is on screen
+(function(){
+  var still = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  document.querySelectorAll("canvas.spark").forEach(function(cv){
+    var ctx = cv.getContext("2d"), light = cv.dataset.tone === "light", w = 0, h = 0, dpr = Math.min(devicePixelRatio || 1, 2), on = false, P = [];
+    for (var i = 0; i < 80; i++) P.push({ x: Math.random(), y: Math.random(), s: 2 + Math.random() * 7, p: Math.random() * 6.283, v: .6 + Math.random() * 1.8, d: .004 + Math.random() * .012, c: Math.random() });
+    function size(){ w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    function draw(t){
+      ctx.clearRect(0, 0, w, h); ctx.globalCompositeOperation = light ? "source-over" : "lighter";
+      for (var i = 0; i < P.length; i++) {
+        var q = P[i], tw = Math.pow(.5 + .5 * Math.sin(t * q.v + q.p), 5), x = q.x * w, y = ((q.y - t * q.d) % 1 + 1) % 1 * h, r = q.s * (.5 + tw);
+        ctx.globalAlpha = .12 + .88 * tw;
+        ctx.fillStyle = light ? (q.c > .6 ? "#FFFFFF" : q.c > .3 ? "#00A9C7" : "#007E95") : (q.c > .7 ? "#FFFFFF" : q.c > .35 ? "#A7DCE3" : "#00A9C7");
+        ctx.beginPath();                                   // four-point sparkle
+        ctx.moveTo(x, y - r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.quadraticCurveTo(x, y, x, y + r); ctx.quadraticCurveTo(x, y, x - r, y); ctx.quadraticCurveTo(x, y, x, y - r);
+        ctx.fill();
+      }
+    }
+    size(); addEventListener("resize", function(){ size(); draw(2); }); draw(2);
+    if (still) return;
+    if ("IntersectionObserver" in window) new IntersectionObserver(function(en){ on = en[0].isIntersecting; }).observe(cv); else on = true;
+    (function tick(now){ requestAnimationFrame(tick); if (on && !document.hidden) draw(now / 1000); })(0);
+  });
+})();
+
+// gallery videos: play muted while on screen, pause off screen; the speaker button turns sound on for one at a time
+(function(){
+  var vids = document.querySelectorAll(".shot.vid video");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){
+      if (e.isIntersecting) { var pr = e.target.play(); if (pr && pr.catch) pr.catch(function(){}); } else e.target.pause();
+    }); }, { threshold: .35 });
+    vids.forEach(function(v){ io.observe(v); });
+  }
+  document.querySelectorAll(".shot.vid .snd").forEach(function(b){
+    b.addEventListener("click", function(){
+      var v = b.parentNode.querySelector("video"), on = v.muted;
+      document.querySelectorAll(".shot.vid").forEach(function(f){ f.querySelector("video").muted = true; var o = f.querySelector(".snd"); o.setAttribute("aria-pressed", "false"); o.setAttribute("aria-label", "Turn sound on"); });
+      v.muted = !on; b.setAttribute("aria-pressed", on); b.setAttribute("aria-label", on ? "Turn sound off" : "Turn sound on");
+      if (on) { var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); }
+    });
+  });
+})();
+
+// gallery filter
+(function(){
+  var bar = document.getElementById("filters"), shots = document.querySelectorAll("#gallery-grid .shot");
+  bar.addEventListener("click", function(e){
+    var b = e.target.closest("button"); if (!b) return;
+    bar.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x === b); });
+    shots.forEach(function(s){ s.hidden = !(b.dataset.f === "all" || s.dataset.c === b.dataset.f); });
+  });
+})();
+
+// enquiry form -> Google Sheet (Apps Script)
+(function(){
+  var form = document.getElementById("enquiry-form"), status = document.getElementById("f-status"), btn = document.getElementById("f-submit");
+  document.getElementById("f-date").min = new Date().toISOString().slice(0, 10);
+  // "Enquire" buttons pre-select their service
+  document.querySelectorAll("[data-service]").forEach(function(a){
+    a.addEventListener("click", function(){ form.service.value = a.dataset.service; });
+  });
+  function say(msg, err){ status.textContent = msg; status.classList.toggle("err", !!err); }
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = form.name.value.trim(), phone = form.phone.value.replace(/[^\d+]/g, "");
+    if (form.website.value) return;                       // spam trap
+    if (name.length < 2) { say("Please enter your name.", true); form.name.focus(); return; }
+    if (phone.replace(/\D/g, "").length < 10) { say("Please enter a valid phone number with at least 10 digits.", true); form.phone.focus(); return; }
+    if (!form.service.value) { say("Please choose a service.", true); form.service.focus(); return; }
+    if (!CONFIG.scriptUrl) { say("The form is not connected to the Google Sheet yet. Add the Apps Script URL in CONFIG to go live.", true); return; }
+    var data = new URLSearchParams(new FormData(form)); data.set("phone", phone); data.set("page", location.href);
+    btn.disabled = true; btn.textContent = "Sending…"; say("");
+    fetch(CONFIG.scriptUrl, { method: "POST", body: data })
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if (j.result !== "success") throw new Error(j.error || "failed"); form.reset(); say("Thank you, " + name + ". We received your request and will contact you shortly."); })
+      .catch(function(){ say("We could not send your request. Please check your connection and try again, or call us.", true); })
+      .then(function(){ btn.disabled = false; btn.textContent = "Book now"; });
+  });
+})();
+
+// hero: glitter. Twinkling sparkles drifting in 3D depth over the salon interior.
+(function(){
+  var canvas = document.getElementById("glitter");
+  if (!window.THREE) return;
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true }); } catch (e) { return; }
+  var still = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var dpr = Math.min(devicePixelRatio || 1, 2); renderer.setPixelRatio(dpr);
+  var scene = new THREE.Scene(), cam = new THREE.PerspectiveCamera(42, 1, .1, 60);
+  cam.position.set(0, 0, 10);
+  var P = innerWidth < 700 ? 420 : 900, pos = [], seed = [];
+  for (var k = 0; k < P; k++) { pos.push((Math.random() - .5) * 26, (Math.random() - .5) * 12, -9 + Math.random() * 15); seed.push(Math.random(), Math.random(), Math.random()); }
+  var g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  g.setAttribute("aS", new THREE.Float32BufferAttribute(seed, 3));
+  var uni = { uTime: { value: 0 }, uDpr: { value: dpr } };
+  var pts = new THREE.Points(g, new THREE.ShaderMaterial({
+    uniforms: uni, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: [
+      "uniform float uTime; uniform float uDpr; attribute vec3 aS; varying float vA; varying float vM; varying float vR;",
+      "void main(){",
+      "  vec3 p = position;",
+      "  p.y = mod(p.y + uTime * (0.10 + aS.x * 0.22) + 6.0, 12.0) - 6.0;",          // slow rise, wraps round
+      "  p.x += sin(uTime * (0.2 + aS.y * 0.4) + aS.z * 6.283) * 0.5;",
+      "  float tw = pow(0.5 + 0.5 * sin(uTime * (1.2 + aS.z * 3.2) + aS.x * 40.0), 6.0);", // sharp twinkle
+      "  vA = (0.10 + 0.90 * tw) * smoothstep(6.0, 4.6, abs(p.y));",
+      "  vM = aS.y; vR = uTime * (aS.x - 0.5) * 0.8 + aS.z * 6.283;",
+      "  vec4 mv = modelViewMatrix * vec4(p, 1.0);",
+      "  gl_PointSize = (26.0 + aS.x * 70.0) * (0.55 + 0.45 * tw) * uDpr / -mv.z;",
+      "  gl_Position = projectionMatrix * mv;",
+      "}"].join("\n"),
+    fragmentShader: [
+      "varying float vA; varying float vM; varying float vR;",
+      "void main(){",
+      "  vec2 d = gl_PointCoord - 0.5; float c = cos(vR), s = sin(vR); d = vec2(c * d.x - s * d.y, s * d.x + c * d.y);",
+      "  float r = length(d);",
+      "  float core = smoothstep(0.16, 0.0, r);",
+      "  float rays = smoothstep(0.5, 0.0, r) * (smoothstep(0.045, 0.0, abs(d.x)) + smoothstep(0.045, 0.0, abs(d.y)));", // four-point sparkle
+      "  float halo = smoothstep(0.5, 0.0, r) * 0.18;",
+      "  float a = clamp(core + rays * 0.9 + halo, 0.0, 1.0);",
+      "  vec3 col = mix(vec3(0.0, 0.663, 0.78), vec3(0.655, 0.863, 0.89), smoothstep(0.2, 0.7, vM));",
+      "  col = mix(col, vec3(1.0), max(core, smoothstep(0.75, 1.0, vM)));",
+      "  gl_FragColor = vec4(col, a * vA);",
+      "}"].join("\n")
+  }));
+  pts.frustumCulled = false; scene.add(pts);
+
+  // ribbons of light sweeping across the lower half, waving in depth
+  function ribbon(y, z, off, tilt){
+    var m = new THREE.Mesh(new THREE.PlaneGeometry(40, 2.6, 180, 6), new THREE.ShaderMaterial({
+      uniforms: { uTime: uni.uTime, uOff: { value: off } }, transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
+      vertexShader: "uniform float uTime; uniform float uOff; varying vec2 vUv;\nvoid main(){ vUv = uv; vec3 p = position; p.y += sin(p.x * 0.32 + uTime * 0.55 + uOff) * 0.85 + sin(p.x * 0.8 - uTime * 0.4 + uOff) * 0.22; p.z += cos(p.x * 0.27 + uTime * 0.45 + uOff) * 1.4 + (uv.y - 0.5) * 2.4 * sin(p.x * 0.2 + uTime * 0.3 + uOff); gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }",
+      fragmentShader: "varying vec2 vUv;\nvoid main(){ float edge = pow(vUv.y, 7.0) + pow(1.0 - vUv.y, 14.0) * 0.5; float body = 0.025 + 0.07 * vUv.y; float ends = smoothstep(0.0, 0.2, vUv.x) * smoothstep(1.0, 0.8, vUv.x); vec3 c = mix(vec3(0.0, 0.663, 0.78), vec3(0.655, 0.863, 0.89), edge); gl_FragColor = vec4(c, (body + edge * 0.8) * ends * 0.6); }"
+    }));
+    m.position.set(0, y, z); m.rotation.z = tilt; m.frustumCulled = false; scene.add(m);
+  }
+  ribbon(-2.5, -1.5, 0.0, 0.05); ribbon(-3.3, 1.0, 2.4, -0.04);
+  function size(){
+    var w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return;
+    renderer.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix();
+    if (still) renderer.render(scene, cam);
+  }
+  var target = new THREE.Vector2(), cur = new THREE.Vector2(), visible = true, t0 = performance.now();
+  addEventListener("resize", size);
+  addEventListener("pointermove", function(e){ target.set(e.clientX / innerWidth - .5, .5 - e.clientY / innerHeight); }, { passive: true });
+  if ("IntersectionObserver" in window) new IntersectionObserver(function(en){ visible = en[0].isIntersecting; }).observe(canvas);
+  uni.uTime.value = 3.0; size();
+  if (still) { renderer.render(scene, cam); return; }
+  (function tick(now){
+    requestAnimationFrame(tick);
+    if (!visible || document.hidden) return;
+    uni.uTime.value = 3.0 + (now - t0) / 1000;
+    cur.lerp(target, .04);
+    cam.position.x = cur.x * 1.6; cam.position.y = cur.y * 1.0; cam.lookAt(0, 0, 0);
+    renderer.render(scene, cam);
+  })(t0);
+})();
+</script>
+</body>
+</html>
